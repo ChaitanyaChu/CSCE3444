@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Login - Complex Calculators</title>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Login Form -->
+    <div class="container mx-auto mt-8 p-4 max-w-md bg-white shadow-md rounded-md">
+        <h2 class="text-2xl font-bold mb-4">Login</h2>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                <input type="text" id="username" name="username" class="w-full p-2 border rounded">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border rounded">
+            </div>
+
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
+                Login
+            </button>
+        </form>
+        <p id="errorMessage" class="text-red-500 mt-4"></p>
+
+        <!-- Signup Section -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
+            <form id="signupForm">
+                <div class="mb-4">
+                    <label for="newUsername" class="block text-gray-700 text-sm font-bold mb-2">New Username</label>
+                    <input type="text" id="newUsername" name="newUsername" class="w-full p-2 border rounded">
+                </div>
+
+                <div class="mb-4">
+                    <label for="newPassword" class="block text-gray-700 text-sm font-bold mb-2">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" class="w-full p-2 border rounded">
+                </div>
+
+                <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
+                    Sign Up
+                </button>
+            </form>
+            <p id="signupSuccessMessage" class="text-green-500 mt-4"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const signupSuccessMessage = document.getElementById('signupSuccessMessage');
+
+            // Initialize with valid credentials from localStorage or an empty array if not present
+            let validCredentials = JSON.parse(localStorage.getItem('validCredentials')) || [];
+
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Simple validation (replace this with server-side validation)
+                if (isValidCredentials(username, password)) {
+                    window.location.href = 'homepage.html';  // Redirect to the basic calculator page
+                } else {
+                    errorMessage.textContent = 'Invalid credentials. Please try again.';
+                }
+            });
+
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const newUsername = document.getElementById('newUsername').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                // Simple validation (replace this with server-side validation)
+                if (newUsername && newPassword) {
+                    // Store the new credentials in localStorage
+                    validCredentials.push({ username: newUsername, password: newPassword });
+                    localStorage.setItem('validCredentials', JSON.stringify(validCredentials));
+
+                    signupSuccessMessage.textContent = 'Sign up successful!';
+                } else {
+                    signupSuccessMessage.textContent = 'Please enter a new username and password.';
+                }
+            });
+
+            // Function to check if credentials are valid
+            function isValidCredentials(username, password) {
+                // Check against valid credentials
+                return validCredentials.some(cred => cred.username === username && cred.password === password);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
