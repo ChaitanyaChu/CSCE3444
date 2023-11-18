@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Quadratic Equation Solver</title>
+    <style>
+        body {
+            background: url('https://media.istockphoto.com/id/1419844586/vector/stem-blue-horizontal-frame-vector-education-bright-illustration.jpg?s=612x612&w=0&k=20&c=-A1eYLYulujNsiM26lkVy7qMT_Hp82N5EtKHSFRmigk=') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .btn {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: #4CAF50;
+            transform: scale(1.05);
+        }
+
+        #a, #b, #c, #result {
+            color: #333;
+        }
+
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Quadratic Solver Container -->
+    <div class="container mx-auto mt-8 p-4 max-w-md">
+
+        <!-- Back Button -->
+        <a href="homepage.html" class="text-blue-500 mb-4 block">Back to Homepage</a>
+
+        <!-- Input Fields -->
+        <div class="mb-4 p-2">
+            <label for="a" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x^2 (a)</label>
+            <input type="text" id="a" name="a" class="w-full p-2 border rounded">
+        </div>
+
+        <div class="mb-4 p-2">
+            <label for="b" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x (b)</label>
+            <input type="text" id="b" name="b" class="w-full p-2 border rounded">
+        </div>
+
+        <div class="mb-4 p-2">
+            <label for="c" class="block text-gray-700 text-sm font-bold mb-2">Enter constant term (c)</label>
+            <input type="text" id="c" name="c" class="w-full p-2 border rounded">
+        </div>
+
+        <!-- Solve Button -->
+        <button onclick="solveQuadratic()" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
+            Solve Quadratic Equation
+        </button>
+
+        <!-- Result Display -->
+        <div class="mt-4">
+            <h3 class="text-lg font-bold mb-2 text-gray-700">Result</h3>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function solveQuadratic() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                document.getElementById('result').innerText = 'Please enter valid coefficients.';
+                return;
+            }
+
+            const discriminant = b ** 2 - 4 * a * c;
+
+            if (discriminant > 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                document.getElementById('result').innerText = `Roots: x1 = ${root1.toFixed(2)}, x2 = ${root2.toFixed(2)}`;
+            } else if (discriminant === 0) {
+                const root = -b / (2 * a);
+                document.getElementById('result').innerText = `Root: x = ${root.toFixed(2)}`;
+            } else {
+                document.getElementById('result').innerText = 'No real roots, discriminant is negative.';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
