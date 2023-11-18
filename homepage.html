@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Complex Calculators</title>
+    <style>
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #d4d4d4;
+        }
+
+        /* Dark Mode Navigation Bar */
+        body.dark-mode nav {
+            background-color: #2d3748;
+        }
+
+        /* Dark Mode Card Styles */
+        body.dark-mode .bg-white {
+            background-color: #2d3748;
+            color: #d4d4d4;
+        }
+
+        /* Dark Mode Switch Styles */
+        .dark-mode-switch {
+            float: right;
+            margin-top: 5px;
+        }
+
+        .dark-mode-label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-500 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <span class="text-2xl font-bold">Complex Calculators</span>
+            <!-- Dark Mode Switch -->
+            <label for="darkModeSwitch" class="dark-mode-label">Dark Mode</label>
+            <label class="switch dark-mode-switch">
+                <input type="checkbox" id="darkModeSwitch">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        <!-- Basic Calculator -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="basic_calculator.html" class="text-xl font-bold block mb-2">Basic Calculator</a>
+            <p>Perform basic arithmetic operations.</p>
+        </div>
+
+        <!-- Quadratic Equation Solver -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="quadratic_solver.html" class="text-xl font-bold block mb-2">Quadratic Equation Solver</a>
+            <p>Solve quadratic equations.</p>
+        </div>
+
+        <!-- Integral Calculator -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="integral_calculator.html" class="text-xl font-bold block mb-2">Integral Calculator</a>
+            <p>Calculate definite and indefinite integrals.</p>
+        </div>
+
+        <!-- Differential Calculator -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="differential_calculator.html" class="text-xl font-bold block mb-2">Differential Calculator</a>
+            <p>Compute derivatives of functions.</p>
+        </div>
+
+        <!-- Binomial Theorem Calculator -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="binomial_calculator.html" class="text-xl font-bold block mb-2">Binomial Theorem Calculator</a>
+            <p>Expand binomial expressions.</p>
+        </div>
+
+        <!-- Matrix Solver -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="matrix_solver.html" class="text-xl font-bold block mb-2">Matrix Solver</a>
+            <p>Solve systems of linear equations using matrices.</p>
+        </div>
+
+        <!-- Matrix Inverse Calculator -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="matrix_inverse.html" class="text-xl font-bold block mb-2">Matrix Inverse Calculator</a>
+            <p>Calculate the inverse of a matrix.</p>
+        </div>
+
+        <!-- Permutations and Combinations -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="permutations_combinations.html" class="text-xl font-bold block mb-2">Permutations and Combinations</a>
+            <p>Calculate permutations and combinations.</p>
+        </div>
+
+        <!-- Other -->
+        <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
+            <a href="other_calculators.html" class="text-xl font-bold block mb-2">Other</a>
+            <p>Explore additional complex calculators.</p>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Switch Functionality
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        darkModeSwitch.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode', darkModeSwitch.checked);
+        });
+    </script>
+
+</body>
+
+</html>
