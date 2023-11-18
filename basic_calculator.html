@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Fancy Calculator</title>
+    <style>
+        body {
+            background: url('https://media.istockphoto.com/id/1419844586/vector/stem-blue-horizontal-frame-vector-education-bright-illustration.jpg?s=612x612&w=0&k=20&c=-A1eYLYulujNsiM26lkVy7qMT_Hp82N5EtKHSFRmigk=') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .btn {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: #4CAF50;
+            transform: scale(1.05);
+        }
+
+        #calculation,
+        #steps {
+            color: #333;
+        }
+
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Calculator Container -->
+    <div class="container mx-auto mt-8 p-4 max-w-md">
+
+        <!-- Back Button -->
+        <a href="homepage.html" class="text-blue-500 mb-4 block">Back to Homepage</a>
+
+        <!-- Display Screen -->
+        <div class="mb-4 bg-gray-200 p-2 text-right rounded-md shadow-md">
+            <div id="calculation" class="text-3xl font-bold"></div>
+        </div>
+
+        <!-- Calculator Buttons -->
+        <div class="grid gap-2">
+            <!-- Row 1 -->
+            <button onclick="appendToCalculation('7')" class="col-span-1 btn">7</button>
+            <button onclick="appendToCalculation('8')" class="col-span-1 btn">8</button>
+            <button onclick="appendToCalculation('9')" class="col-span-1 btn">9</button>
+            <button onclick="clearCalculation()" class="col-span-1 btn bg-yellow-500">C</button>
+
+            <!-- Row 2 -->
+            <button onclick="appendToCalculation('4')" class="col-span-1 btn">4</button>
+            <button onclick="appendToCalculation('5')" class="col-span-1 btn">5</button>
+            <button onclick="appendToCalculation('6')" class="col-span-1 btn">6</button>
+            <button onclick="appendToCalculation('/')" class="col-span-1 btn bg-blue-500 text-white">/</button>
+
+            <!-- Row 3 -->
+            <button onclick="appendToCalculation('1')" class="col-span-1 btn">1</button>
+            <button onclick="appendToCalculation('2')" class="col-span-1 btn">2</button>
+            <button onclick="appendToCalculation('3')" class="col-span-1 btn">3</button>
+            <button onclick="appendToCalculation('*')" class="col-span-1 btn bg-blue-500 text-white">*</button>
+
+            <!-- Row 4 -->
+            <button onclick="appendToCalculation('0')" class="col-span-2 btn">0</button>
+            <button onclick="appendToCalculation('.')" class="col-span-1 btn">.</button>
+            <button onclick="appendToCalculation('-')" class="col-span-1 btn bg-blue-500 text-white">-</button>
+
+            <!-- Row 5 -->
+            <button onclick="calculateResult()" class="col-span-3 btn bg-green-500 text-white">=</button>
+            <button onclick="appendToCalculation('+')" class="col-span-1 btn bg-blue-500 text-white">+</button>
+            
+        </div>
+
+        <!-- Steps Display -->
+        <div class="mt-4">
+            <h3 class="text-lg font-bold mb-2 text-gray-700">Calculation Steps</h3>
+            <div id="steps"></div>
+        </div>
+    </div>
+
+    <script>
+        let calculation = '';
+        let steps = '';
+
+        function appendToCalculation(value) {
+            calculation += value;
+            updateDisplay();
+        }
+
+        function clearCalculation() {
+            calculation = '';
+            steps = '';
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            try {
+                const result = eval(calculation);
+                steps = `= ${result}`;
+                updateDisplay();
+            } catch (error) {
+                steps = 'Error';
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('calculation').innerText = calculation;
+            document.getElementById('steps').innerText = steps;
+        }
+    </script>
+
+</body>
+
+</html>
