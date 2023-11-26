@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binomial Theorem Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h1 class="text-2xl font-bold mb-4">Binomial Theorem Calculator</h1>
+
+    <div>
+      <label for="base" class="block text-sm font-medium text-gray-600">Enter the base (a + b):</label>
+      <input type="text" id="base" class="mt-1 p-2 border rounded-md w-full" placeholder="e.g., (x + y)">
+    </div>
+
+    <div class="mt-4">
+      <label for="exponent" class="block text-sm font-medium text-gray-600">Enter the exponent:</label>
+      <input type="number" id="exponent" class="mt-1 p-2 border rounded-md w-full" placeholder="e.g., 3">
+    </div>
+
+    <div class="mt-4">
+      <button onclick="calculateBinomial()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Calculate Binomial</button>
+    </div>
+
+    <div class="mt-8">
+      <label for="result" class="block text-sm font-medium text-gray-600">Result:</label>
+      <div id="result" class="mt-1 p-2 border rounded-md w-full"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateBinomial() {
+      const baseInput = document.getElementById('base').value;
+      const exponentInput = document.getElementById('exponent').value;
+
+      try {
+        // Parse the base input into an array [a, b]
+        const base = baseInput
+          .replace(/\s/g, '') // Remove spaces
+          .match(/([^\+\-]+)/g)
+          .map(term => term.trim());
+
+        const exponent = parseInt(exponentInput);
+
+        // Calculate the binomial expansion
+        const result = calculateBinomialExpansion(base, exponent);
+
+        // Display the result
+        const resultElement = document.getElementById('result');
+        resultElement.innerText = `Result: ${result}`;
+
+        // Adjust the size of the result box based on the length of the result
+        const resultLength = result.length;
+        resultElement.style.height = `${resultLength > 30 ? resultLength * 4 : 40}px`;
+      } catch (error) {
+        // Handle invalid inputs
+        document.getElementById('result').innerText = 'Invalid input';
+      }
+    }
+
+    function calculateBinomialExpansion(base, exponent) {
+      // Calculate binomial coefficients and construct the expanded form with spaces between terms
+      const resultTerms = [];
+      for (let k = 0; k <= exponent; k++) {
+        const coefficient = math.combinations(exponent, k);
+        const term = `${coefficient > 1 ? coefficient : ''}${base[0]}^${exponent - k} (${base[1]}^${k})`;
+        resultTerms.push(term);
+      }
+
+      return resultTerms.join(' + ');
+    }
+  </script>
+
+  <!-- Include Math.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.min.js"></script>
+
+</body>
+</html>
