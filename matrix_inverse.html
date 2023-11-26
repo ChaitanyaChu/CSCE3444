@@ -12,11 +12,22 @@
     <h1 class="text-2xl font-bold mb-4">Matrix Inverse Calculator</h1>
 
     <div class="grid gap-2">
-      <label for="matrix" class="text-sm font-medium text-gray-600">Enter the matrix (each row separated by semicolon and each element by space):</label>
-      <textarea id="matrix" class="p-2 border rounded-md w-full h-24" placeholder="e.g., 1 2 3; 4 5 6; 7 8 9"></textarea>
+      <label for="rows" class="text-sm font-medium text-gray-600">Enter the number of rows:</label>
+      <input type="number" id="rows" class="p-2 border rounded-md w-full" placeholder="Enter the number of rows">
     </div>
 
-    <div class="flex justify-center">
+    <div class="grid gap-2 mt-2">
+      <label for="cols" class="text-sm font-medium text-gray-600">Enter the number of columns:</label>
+      <input type="number" id="cols" class="p-2 border rounded-md w-full" placeholder="Enter the number of columns">
+    </div>
+
+    <div class="mt-4">
+      <label for="matrix" class="text-sm font-medium text-gray-600">Enter the matrix values:</label>
+      <table id="matrix" class="w-full mt-2 border-collapse border">
+      </table>
+    </div>
+
+    <div class="flex justify-center mt-4">
       <button onclick="calculateInverse()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Calculate Inverse</button>
     </div>
 
@@ -30,15 +41,38 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.min.js"></script>
 
   <script>
+    function createMatrixInputTable(rows, cols) {
+      const matrixTable = document.getElementById('matrix');
+      matrixTable.innerHTML = '';
+
+      for (let i = 0; i < rows; i++) {
+        const row = matrixTable.insertRow();
+        for (let j = 0; j < cols; j++) {
+          const cell = row.insertCell();
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.classList.add('border', 'p-2', 'w-full');
+          input.id = `input_${i}_${j}`;
+          cell.appendChild(input);
+        }
+      }
+    }
+
     function calculateInverse() {
-      const matrixInput = document.getElementById('matrix').value;
+      const rows = parseInt(document.getElementById('rows').value);
+      const cols = parseInt(document.getElementById('cols').value);
 
       try {
-        // Parse the matrix input into a 2D array
-        const matrix = matrixInput
-          .trim()
-          .split(';')
-          .map(row => row.trim().split(/\s+/).map(Number));
+        // Get matrix values from input
+        const matrix = [];
+        for (let i = 0; i < rows; i++) {
+          const row = [];
+          for (let j = 0; j < cols; j++) {
+            const input = document.getElementById(`input_${i}_${j}`);
+            row.push(input ? parseFloat(input.value) || 0 : 0);
+          }
+          matrix.push(row);
+        }
 
         // Use Math.js to calculate the inverse
         const inverseMatrix = math.inv(matrix);
@@ -66,6 +100,20 @@
         document.getElementById('result').innerText = 'Invalid input';
       }
     }
+
+    document.getElementById('rows').addEventListener('input', updateMatrixTable);
+    document.getElementById('cols').addEventListener('input', updateMatrixTable);
+
+    function updateMatrixTable() {
+      const rows = parseInt(document.getElementById('rows').value) || 2;
+      const cols = parseInt(document.getElementById('cols').value) || 2;
+
+      // Update the matrix input table
+      createMatrixInputTable(rows, cols);
+    }
+
+    // Initially create the input table with default values
+    updateMatrixTable();
   </script>
 
 </body>
