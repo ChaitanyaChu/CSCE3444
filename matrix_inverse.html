@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Inverse Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h1 class="text-2xl font-bold mb-4">Matrix Inverse Calculator</h1>
+
+    <div class="grid gap-2">
+      <label for="matrix" class="text-sm font-medium text-gray-600">Enter the matrix (each row separated by semicolon and each element by space):</label>
+      <textarea id="matrix" class="p-2 border rounded-md w-full h-24" placeholder="e.g., 1 2 3; 4 5 6; 7 8 9"></textarea>
+    </div>
+
+    <div class="flex justify-center">
+      <button onclick="calculateInverse()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Calculate Inverse</button>
+    </div>
+
+    <div class="mt-4">
+      <label for="result" class="text-sm font-medium text-gray-600">Inverse:</label>
+      <table id="result" class="w-full mt-2 border-collapse border">
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.min.js"></script>
+
+  <script>
+    function calculateInverse() {
+      const matrixInput = document.getElementById('matrix').value;
+
+      try {
+        // Parse the matrix input into a 2D array
+        const matrix = matrixInput
+          .trim()
+          .split(';')
+          .map(row => row.trim().split(/\s+/).map(Number));
+
+        // Use Math.js to calculate the inverse
+        const inverseMatrix = math.inv(matrix);
+
+        // Convert each element to a fraction and format as "numerator/denominator" or just "numerator" if the denominator is 1
+        const resultFractions = inverseMatrix.map(row => row.map(element => {
+          const fraction = math.fraction(element);
+          return fraction.d === 1 ? `${fraction.n}  ` : `${fraction.n}/${fraction.d}`;
+        }));
+
+        // Display the result in a table
+        const resultTable = document.getElementById('result');
+        resultTable.innerHTML = '';
+
+        for (let i = 0; i < resultFractions.length; i++) {
+          const row = resultTable.insertRow();
+          for (let j = 0; j < resultFractions[i].length; j++) {
+            const cell = row.insertCell();
+            cell.textContent = resultFractions[i][j];
+            cell.classList.add('border', 'p-2', 'text-center');
+          }
+        }
+      } catch (error) {
+        // Handle invalid inputs
+        document.getElementById('result').innerText = 'Invalid input';
+      }
+    }
+  </script>
+
+</body>
+</html>
