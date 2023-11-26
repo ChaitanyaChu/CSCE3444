@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Arithmetic Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .matrix-input {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .operation-select {
+      margin-top: 20px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .result-table {
+      margin-top: 10px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .result-table th,
+    .result-table td {
+      border: 1px solid #e2e8f0;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-8">
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h1 class="text-2xl font-bold mb-4">Matrix Arithmetic Calculator</h1>
+
+    <div class="grid gap-2">
+      <label for="rows" class="text-sm font-medium text-gray-600">Enter the number of rows:</label>
+      <input type="number" id="rows" class="p-2 border rounded-md w-full" placeholder="Enter the number of rows">
+    </div>
+
+    <div class="grid gap-2 mt-2">
+      <label for="cols" class="text-sm font-medium text-gray-600">Enter the number of columns:</label>
+      <input type="number" id="cols" class="p-2 border rounded-md w-full" placeholder="Enter the number of columns">
+    </div>
+
+    <div class="mt-4">
+      <label for="matrixA" class="text-sm font-medium text-gray-600">Enter Matrix A:</label>
+      <table id="matrixA" class="matrix-input mt-2">
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <label for="matrixB" class="text-sm font-medium text-gray-600">Enter Matrix B:</label>
+      <table id="matrixB" class="matrix-input mt-2">
+      </table>
+    </div>
+
+    <div class="operation-select">
+      <label for="operation" class="text-sm font-medium text-gray-600">Choose operation:</label>
+      <select id="operation" class="p-2 border rounded-md w-full">
+        <option value="addition">Addition</option>
+        <option value="subtraction">Subtraction</option>
+        <option value="multiplication">Multiplication</option>
+        <option value="division">Division</option>
+      </select>
+    </div>
+
+    <div class="flex justify-center mt-4">
+      <button onclick="calculateMatrixOperation()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Calculate</button>
+    </div>
+
+    <div class="result mt-4">
+      <label for="result" class="text-sm font-medium text-gray-600">Result:</label>
+      <table id="result" class="result-table"></table>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.2/math.min.js"></script>
+
+  <script>
+    function createMatrixInputTable(matrixId, rows, cols) {
+      const matrixTable = document.getElementById(matrixId);
+      matrixTable.innerHTML = '';
+
+      for (let i = 0; i < rows; i++) {
+        const row = matrixTable.insertRow();
+        for (let j = 0; j < cols; j++) {
+          const cell = row.insertCell();
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.classList.add('border', 'p-2', 'w-full');
+          input.placeholder = `${matrixId}(${i + 1},${j + 1})`;
+          input.id = `${matrixId}_${i}_${j}`;
+          cell.appendChild(input);
+        }
+      }
+    }
+
+    function calculateMatrixOperation() {
+      const rowsA = parseInt(document.getElementById('rows').value);
+      const colsA = parseInt(document.getElementById('cols').value);
+      const rowsB = rowsA; // For simplicity, assume the number of rows for Matrix B is the same as Matrix A
+      const colsB = parseInt(document.getElementById('cols').value);
+
+      try {
+        // Get matrix values from input
+        const matrixA = getMatrixValues('matrixA', rowsA, colsA);
+        const matrixB = getMatrixValues('matrixB', rowsB, colsB);
+
+        // Perform selected operation
+        let result;
+        const operation = document.getElementById('operation').value;
+        switch (operation) {
+          case 'addition':
+            result = math.add(matrixA, matrixB);
+            break;
+          case 'subtraction':
+            result = math.subtract(matrixA, matrixB);
+            break;
+          case 'multiplication':
+            result = math.multiply(matrixA, matrixB);
+            break;
+          case 'division':
+            result = math.divide(matrixA, matrixB);
+            break;
+          default:
+            throw new Error('Invalid operation');
+        }
+
+        // Display the result in a table
+        displayResult(result);
+      } catch (error) {
+        // Handle invalid input or errors
+        document.getElementById('result').innerHTML = '<span class="text-red-600">Invalid input or operation. Please enter valid values.</span>';
+      }
+    }
+
+    function getMatrixValues(matrixId, rows, cols) {
+      const matrix = [];
+      for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+          const input = document.getElementById(`${matrixId}_${i}_${j}`);
+          row.push(input ? parseFloat(input.value) || 0 : 0);
+        }
+        matrix.push(row);
+      }
+      return math.matrix(matrix);
+    }
+
+    function displayResult(resultMatrix) {
+      const resultTable = document.getElementById('result');
+      resultTable.innerHTML = '';
+
+      for (let i = 0; i < resultMatrix._size[0]; i++) {
+        const row = resultTable.insertRow();
+        for (let j = 0; j < resultMatrix._size[1]; j++) {
+          const cell = row.insertCell();
+          cell.textContent = resultMatrix._data[i][j];
+          cell.classList.add('border', 'p-2', 'text-center');
+        }
+      }
+    }
+
+    document.getElementById('rows').addEventListener('input', updateMatrixTables);
+    document.getElementById('cols').addEventListener('input', updateMatrixTables);
+
+    function updateMatrixTables() {
+      const rows = parseInt(document.getElementById('rows').value) || 2;
+      const cols = parseInt(document.getElementById('cols').value) || 2;
+
+      // Update the matrix input tables
+      createMatrixInputTable('matrixA', rows, cols);
+      createMatrixInputTable('matrixB', rows, cols);
+    }
+
+    // Initially create the input tables with default values
+    updateMatrixTables();
+  </script>
+
+</body>
+</html>
