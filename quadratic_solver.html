@@ -8,7 +8,7 @@
     <title>Quadratic Equation Solver</title>
     <style>
         body {
-            background: url('https://media.istockphoto.com/id/1419844586/vector/stem-blue-horizontal-frame-vector-education-bright-illustration.jpg?s=612x612&w=0&k=20&c=-A1eYLYulujNsiM26lkVy7qMT_Hp82N5EtKHSFRmigk=') no-repeat center center fixed;
+            background: url('https://ziplogix.com/wp-content/uploads/2021/08/background-image-for-zip-website.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -38,39 +38,55 @@
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('https://ziplogix.com/wp-content/uploads/2021/08/background-image-for-zip-website.jpg'); height: 100vh;">
 
-    <!-- Quadratic Solver Container -->
-    <div class="container mx-auto mt-8 p-4 max-w-md">
+    <nav class="py-4 bg-gradient-to-r from-black via-black to-blue-700">
+      <div class="container flex justify-between items-center">
+          <span class="text-2xl font-bold"><a href="#" class="text-2xl font-bold text-white">Complex Calculators</a></span>
+          <div class="flex items-center space-x-4">
+              <!-- Back to Homepage button with a box around it -->
+              <a href="homepage.html" class="text-white border border-white px-2 py-1 rounded-md">Back to Homepage</a>
+          </div>
+      </div>
+    </nav>
 
-        <!-- Back Button -->
-        <a href="homepage.html" class="text-blue-500 mb-4 block">Back to Homepage</a>
+    <!-- Background Image and Quadratic Solver Container -->
+    <div class="bg-cover bg-center bg-no-repeat" style="background-image: url('https://ziplogix.com/wp-content/uploads/2021/08/background-image-for-zip-website.jpg'); height: 100vh;">
 
-        <!-- Input Fields -->
-        <div class="mb-4 p-2">
-            <label for="a" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x^2 (a)</label>
-            <input type="text" id="a" name="a" class="w-full p-2 border rounded">
-        </div>
+        <!-- Quadratic Solver Container -->
+        <div class="container mx-auto mt-8 p-4 max-w-md">
 
-        <div class="mb-4 p-2">
-            <label for="b" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x (b)</label>
-            <input type="text" id="b" name="b" class="w-full p-2 border rounded">
-        </div>
+            <!-- Back Button Box -->
+            <div class="mb-4 p-2 border rounded">
+                <a href="homepage.html" class="text-blue-500 block">Back to Homepage</a>
+            </div>
 
-        <div class="mb-4 p-2">
-            <label for="c" class="block text-gray-700 text-sm font-bold mb-2">Enter constant term (c)</label>
-            <input type="text" id="c" name="c" class="w-full p-2 border rounded">
-        </div>
+            <!-- Input Fields -->
+            <div class="mb-4 p-2">
+                <label for="a" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x^2 (a)</label>
+                <input type="text" id="a" name="a" class="w-full p-2 border rounded">
+            </div>
 
-        <!-- Solve Button -->
-        <button onclick="solveQuadratic()" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
-            Solve Quadratic Equation
-        </button>
+            <div class="mb-4 p-2">
+                <label for="b" class="block text-gray-700 text-sm font-bold mb-2">Enter coefficient for x (b)</label>
+                <input type="text" id="b" name="b" class="w-full p-2 border rounded">
+            </div>
 
-        <!-- Result Display -->
-        <div class="mt-4">
-            <h3 class="text-lg font-bold mb-2 text-gray-700">Result</h3>
-            <div id="result"></div>
+            <div class="mb-4 p-2">
+                <label for="c" class="block text-gray-700 text-sm font-bold mb-2">Enter constant term (c)</label>
+                <input type="text" id="c" name="c" class="w-full p-2 border rounded">
+            </div>
+
+            <!-- Solve Button -->
+            <button onclick="solveQuadratic()" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
+                Solve Quadratic Equation
+            </button>
+
+            <!-- Result Display -->
+            <div class="mt-4">
+                <h3 class="text-lg font-bold mb-2 text-gray-700">Result</h3>
+                <div id="result"></div>
+            </div>
         </div>
     </div>
 
