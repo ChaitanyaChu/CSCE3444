@@ -6,58 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <title>Login - Complex Calculators</title>
+    <style>
+        body {
+            background: url('https://img.freepik.com/premium-photo/startup-rocket-launch_1172-1076.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100%;
+        }
+
+        .right-side {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            width: 40%;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .right-side h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form label {
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .login-form input {
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-form button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
     <!-- Login Form -->
-    <div class="container mx-auto mt-8 p-4 max-w-md bg-white shadow-md rounded-md">
-        <h2 class="text-2xl font-bold mb-4">Login</h2>
-        <form id="loginForm">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                <input type="text" id="username" name="username" class="w-full p-2 border rounded">
-            </div>
+    <div class="container">
+        <!-- Right Side -->
+        <div class="right-side">
+            <h2>Login</h2>
+            <form class="login-form" id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="border rounded p-2">
 
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                <input type="password" id="password" name="password" class="w-full p-2 border rounded">
-            </div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="border rounded p-2">
 
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
-                Login
-            </button>
-        </form>
-        <p id="errorMessage" class="text-red-500 mt-4"></p>
-
-        <!-- Signup Section -->
-        <div class="mt-8">
-            <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
-            <form id="signupForm">
-                <div class="mb-4">
-                    <label for="newUsername" class="block text-gray-700 text-sm font-bold mb-2">New Username</label>
-                    <input type="text" id="newUsername" name="newUsername" class="w-full p-2 border rounded">
-                </div>
-
-                <div class="mb-4">
-                    <label for="newPassword" class="block text-gray-700 text-sm font-bold mb-2">New Password</label>
-                    <input type="password" id="newPassword" name="newPassword" class="w-full p-2 border rounded">
-                </div>
-
-                <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
-                    Sign Up
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
+                    Login
                 </button>
             </form>
-            <p id="signupSuccessMessage" class="text-green-500 mt-4"></p>
+            <p id="errorMessage" class="text-red-500 mt-4 text-center"></p>
+
+            <!-- Navigation to Signup Page -->
+            <div class="mt-4 text-center">
+                <a href="signup.html" class="text-blue-500 hover:underline">Don't have an account? Sign up here</a>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
             const errorMessage = document.getElementById('errorMessage');
-            const signupSuccessMessage = document.getElementById('signupSuccessMessage');
 
             // Initialize with valid credentials from localStorage or an empty array if not present
             let validCredentials = JSON.parse(localStorage.getItem('validCredentials')) || [];
@@ -73,24 +115,6 @@
                     window.location.href = 'homepage.html';  // Redirect to the basic calculator page
                 } else {
                     errorMessage.textContent = 'Invalid credentials. Please try again.';
-                }
-            });
-
-            signupForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                const newUsername = document.getElementById('newUsername').value;
-                const newPassword = document.getElementById('newPassword').value;
-
-                // Simple validation (replace this with server-side validation)
-                if (newUsername && newPassword) {
-                    // Store the new credentials in localStorage
-                    validCredentials.push({ username: newUsername, password: newPassword });
-                    localStorage.setItem('validCredentials', JSON.stringify(validCredentials));
-
-                    signupSuccessMessage.textContent = 'Sign up successful!';
-                } else {
-                    signupSuccessMessage.textContent = 'Please enter a new username and password.';
                 }
             });
 
