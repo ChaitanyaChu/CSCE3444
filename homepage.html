@@ -26,7 +26,6 @@
 
         /* Dark Mode Switch Styles */
         .dark-mode-switch {
-            float: right;
             margin-top: 5px;
         }
 
@@ -43,12 +42,22 @@
     <nav class="bg-blue-500 p-4 text-white">
         <div class="container mx-auto flex justify-between items-center">
             <span class="text-2xl font-bold">Complex Calculators</span>
-            <!-- Dark Mode Switch -->
-            <label for="darkModeSwitch" class="dark-mode-label">Dark Mode</label>
-            <label class="switch dark-mode-switch">
-                <input type="checkbox" id="darkModeSwitch">
-                <span class="slider"></span>
-            </label>
+            <div class="flex space-x-4">
+                <!-- About Button -->
+                <a href="about.html" class="text-white hover:underline">About</a>
+                <!-- Challenge Streak Button -->
+                <a href="challenge_streak.html" class="text-white hover:underline">Challenge Streak</a>
+                <!-- Settings Button -->
+                <a href="settings.html" class="text-white hover:underline">Settings</a>
+                <!-- Logout Button -->
+                <a href="index.html" class="text-white hover:underline">Logout</a>
+                <!-- Dark Mode Switch -->
+                <label for="darkModeSwitch" class="dark-mode-label">Dark Mode</label>
+                <label class="switch dark-mode-switch">
+                    <input type="checkbox" id="darkModeSwitch">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
     </nav>
 
@@ -86,7 +95,7 @@
 
         <!-- Matrix Solver -->
         <div class="bg-white p-6 rounded-md shadow-md hover:shadow-lg">
-            <a href="matrix_solver.html" class="text-xl font-bold block mb-2">Matrix Solver</a>
+            <a href="matrix_solver.html" class="text-xl font-bold block mb-2">Matrix Determinant Solver</a>
             <p>Solve systems of linear equations using matrices.</p>
         </div>
 
