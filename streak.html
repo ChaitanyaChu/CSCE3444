@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Streak Calendar</title>
+</head>
+
+<body class="bg-gray-100 p-8">
+
+    <!-- Check if the user is logged in -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+
+            if (!isLoggedIn) {
+                // Redirect to the login page if not logged in
+                window.location.href = 'login.html';
+                return; // Add this line to prevent further execution
+            }
+
+            // Function to logout (for demonstration purposes)
+            function logout() {
+                localStorage.removeItem('loggedIn');
+                window.location.href = 'login.html';
+            }
+
+            // Dynamic Calendar Generation
+            const calendarContainer = document.createElement('div');
+            calendarContainer.classList.add('max-w-xl', 'mx-auto', 'bg-white', 'p-8', 'rounded-md', 'shadow-md');
+            document.body.appendChild(calendarContainer);
+
+            const calendarHeader = document.createElement('h1');
+            calendarHeader.classList.add('text-2xl', 'font-bold', 'mb-4');
+            calendarHeader.textContent = 'Streak Calendar';
+            calendarContainer.appendChild(calendarHeader);
+
+            // Monthly Calendar
+            const calendarGrid = document.createElement('div');
+            calendarGrid.classList.add('grid', 'grid-cols-7', 'gap-2');
+            calendarContainer.appendChild(calendarGrid);
+
+            // Calendar Days
+            for (let day = 1; day <= 31; day++) {
+                const calendarDay = document.createElement('div');
+                calendarDay.classList.add('text-center', 'py-2', 'border', 'border-gray-300', 'cursor-pointer');
+
+                // Add logic to determine if the user logged in on this date
+                // For demonstration, marking every odd-numbered day as logged in
+                if (day % 2 === 1) {
+                    calendarDay.classList.add('bg-blue-500', 'text-white');
+                } else {
+                    calendarDay.classList.add('bg-gray-200');
+                }
+
+                calendarDay.textContent = day.toString();
+                calendarDay.addEventListener('click', () => alert(`Clicked on day ${day}`)); // Add your logic here
+                calendarGrid.appendChild(calendarDay);
+            }
+
+            // Logout Button
+            const logoutButton = document.createElement('button');
+            logoutButton.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded', 'hover:bg-red-600', 'focus:outline-none', 'focus:shadow-outline-red');
+            logoutButton.textContent = 'Logout';
+            logoutButton.addEventListener('click', logout);
+            calendarContainer.appendChild(logoutButton);
+        });
+    </script>
+
+</body>
+
+</html>
