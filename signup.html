@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Sign Up - Complex Calculators</title>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Signup Form -->
+    <div class="container mx-auto mt-8 p-4 max-w-md bg-white shadow-md rounded-md">
+        <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
+        <form id="signupForm">
+            <div class="mb-4">
+                <label for="newUsername" class="block text-gray-700 text-sm font-bold mb-2">New Username</label>
+                <input type="text" id="newUsername" name="newUsername" class="w-full p-2 border rounded">
+            </div>
+
+            <div class="mb-4">
+                <label for="newPassword" class="block text-gray-700 text-sm font-bold mb-2">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" class="w-full p-2 border rounded">
+            </div>
+
+            <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green">
+                Sign Up
+            </button>
+        </form>
+        <p id="signupSuccessMessage" class="text-green-500 mt-4"></p>
+
+        <!-- Navigation to Login Page -->
+        <div class="mt-4">
+            <a href="login.html" class="text-blue-500 hover:underline">Already have an account? Log in here</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signupForm = document.getElementById('signupForm');
+            const signupSuccessMessage = document.getElementById('signupSuccessMessage');
+
+            // Initialize with valid credentials from localStorage or an empty array if not present
+            let validCredentials = JSON.parse(localStorage.getItem('validCredentials')) || [];
+
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const newUsername = document.getElementById('newUsername').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                // Simple validation (replace this with server-side validation)
+                if (newUsername && newPassword) {
+                    // Store the new credentials in localStorage
+                    validCredentials.push({ username: newUsername, password: newPassword });
+                    localStorage.setItem('validCredentials', JSON.stringify(validCredentials));
+
+                    signupSuccessMessage.textContent = 'Sign up successful!';
+                } else {
+                    signupSuccessMessage.textContent = 'Please enter a new username and password.';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
