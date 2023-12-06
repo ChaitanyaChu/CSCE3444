@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integral Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('https://ziplogix.com/wp-content/uploads/2021/08/background-image-for-zip-website.jpg'); height: 100vh;">
+
+    <nav class="py-4 bg-gradient-to-r from-black via-black to-blue-700">
+      <div class="container flex justify-between items-center">
+          <span class="text-2xl font-bold"><a href="#" class="text-2xl font-bold text-white">Complex Calculators</a></span>
+          <div class="flex items-center space-x-4">
+              <!-- Back to Homepage button with a box around it -->
+              <a href="homepage.html" class="text-white border border-white px-2 py-1 rounded-md">Back to Homepage</a>
+          </div>
+      </div>
+    </nav>
+
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-2xl font-bold mb-4">Integral Calculator</h1>
+
+        <form id="integralForm" class="space-y-4">
+            <div>
+                <label for="expression" class="block text-sm font-medium text-gray-600">Enter Expression:</label>
+                <input type="text" id="expression" name="expression" class="mt-1 p-2 border rounded w-full" placeholder="e.g., x^2 + 2x + 1">
+            </div>
+
+            <button type="button" onclick="calculateIntegral()" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Calculate Integral</button>
+        </form>
+
+        <div id="result" class="mt-4 hidden">
+            <h2 class="text-lg font-semibold mb-2">Result:</h2>
+            <p id="integralResult" class="bg-gray-200 p-2 rounded"></p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.js"></script>
+
+    <script>
+        function calculateIntegral() {
+            const expression = document.getElementById('expression').value;
+            const resultElement = document.getElementById('integralResult');
+
+            try {
+                const mathResult = math.parse(expression).compile().integral('x').toString();
+                resultElement.textContent = `∫(${expression}) dx = ${mathResult}`;
+                document.getElementById('result').classList.remove('hidden');
+            } catch (error) {
+                resultElement.textContent = 'Error: Invalid expression';
+                document.getElementById('result').classList.remove('hidden');
+            }
+        }
+    </script>
+
+</body>
+</html>
